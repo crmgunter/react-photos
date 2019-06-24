@@ -43,8 +43,8 @@ class Webcam extends Component {
                         <div><button onClick={this.reset}>Retake?</button></div>
                     </div> : <Camera
                         onTakePhoto={(dataUri) => {this.onTakePhoto(dataUri);}}
-                        //   onCameraError = { (error) => { this.onCameraError(error); } }
-                        //   idealFacingMode = {FACING_MODES.ENVIRONMENT}
+                          onCameraError = { (error) => { this.onCameraError(error); } }
+                          idealFacingMode = {FACING_MODES.ENVIRONMENT}
                           idealResolution = {{width: 1600, height: 1400}}
                         //   imageType = {IMAGE_TYPES.JPG}
                         //   imageCompression = {0.97}
