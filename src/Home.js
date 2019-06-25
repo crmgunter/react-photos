@@ -6,7 +6,10 @@ export default class Home extends Component {
         return (
             <div>
                 <Link to="/webcam">
-                <button>Take a photo</button>
+                <button>Take a photo with react-html5-camera-photo</button>
+                </Link>
+                <Link to="/react-webcam">
+                <button>Take a photo with react-webcam</button>
                 </Link>
             </div>
         )

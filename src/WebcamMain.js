@@ -3,7 +3,7 @@ import Camera, {FACING_MODES, IMAGE_TYPES} from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import {Link} from 'react-router-dom'
 
-class Webcam extends Component {
+class WebcamMain extends Component {
     state = {
         photo: null
     }
@@ -35,6 +35,7 @@ class Webcam extends Component {
     // }
 
     render() {
+        console.log(navigator)
         return (
             <div>
                 {this.state.photo ?
@@ -52,7 +53,7 @@ class Webcam extends Component {
                         idealResolution={{width: 800, height: 600}}
                         //   imageType = {IMAGE_TYPES.JPG}
                         //   imageCompression = {0.97}
-                        //   isMaxResolution = {false}
+                          isMaxResolution = {true}
                         //   isImageMirror = {false}
                         //   isSilentMode = {true}
                         //   isDisplayStartCameraError = {true}
@@ -61,9 +62,10 @@ class Webcam extends Component {
                         onCameraStart={(stream) => {this.onCameraStart(stream);}}
                         onCameraStop={() => {this.onCameraStop();}}
                     />}
+                
             </div >
         );
     }
 }
 
-export default Webcam;
+export default WebcamMain;
