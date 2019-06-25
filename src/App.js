@@ -5,6 +5,7 @@ import Home from './Home'
 import WebcamMain from './WebcamMain';
 import ReactWebcam from './ReactWebcam'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import adapter from 'webrtc-adapter';
 
 function App() {
   return (
