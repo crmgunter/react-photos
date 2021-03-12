@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cropperjs": "^1.5.11",
     "react": "^16.8.6",
+    "react-cropper": "^2.1.7",
     "react-dom": "^16.8.6",
     "react-html5-camera-photo": "^1.4.3",
     "react-router": "^5.0.1",
