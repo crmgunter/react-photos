@@ -14,7 +14,9 @@ class WebcamMain extends Component {
         this.state = {
             photo: null,
             croppedPhoto: null,
-            cropped: false
+            cropped: false,
+            cropper: null,
+            cropData: null
         };
     }
 
@@ -47,14 +49,16 @@ class WebcamMain extends Component {
     onCrop = () => {
         const imageElement = this.cropperRef && this.cropperRef.current;
         const cropper = imageElement && imageElement.cropper;
-        console.log(cropper.getCroppedCanvas().toDataURL());
+        // console.log(cropper.getCroppedCanvas().toDataURL());
 
-        this.setState({croppedPhoto: cropper.getCroppedCanvas().toDataURL()});
+        // this.setState({croppedPhoto: cropper.getCroppedCanvas().toDataURL()});
     };
 
     submitCrop = () => {
-        this.setState({cropped: true})
-    }
+        if (typeof this.state.cropper !== "undefined") {
+            this.setState({cropData: this.state.cropper.getCroppedCanvas().toDataURL(), cropped: true})
+        }
+    };
 
     render() {
         console.log(navigator);
@@ -66,15 +70,22 @@ class WebcamMain extends Component {
                         <div>
                             {!this.state.cropped ? <Cropper
                                 src={this.state.photo}
-                                style={{height: 400, width: "100%"}}
+                                style={{height: 400, width: "100%", border: "1px solid yellow"}}
                                 // Cropper.js options
                                 initialAspectRatio={4 / 3}
+                                aspectRatio={4 / 3}
                                 guides={false}
                                 crop={this.onCrop}
+                                // dragMode={"move"}
+                                modal={false}
                                 ref={this.cropperRef}
+                                onInitialized={(instance) => {
+                                    this.setState({cropper: instance})
+                                }}
                             /> : false}
-                            
-                            <img src={this.state.croppedPhoto} alt={this.state.photo.name} />
+
+                            {/* <img src={this.state.croppedPhoto} alt={this.state.photo.name} /> */}
+                            <img src={this.state.cropData} alt={"cropped"} />
                         </div>
 
                         <button onClick={this.submitCrop}>Looks good!</button>
@@ -83,31 +94,31 @@ class WebcamMain extends Component {
                         </div>
                     </div>
                 ) : (
-                    <Camera
-                        onTakePhoto={(dataUri) => {
-                            this.onTakePhoto(dataUri);
-                        }}
-                        onCameraError={(error) => {
-                            this.onCameraError(error);
-                        }}
-                        // idealFacingMode={FACING_MODES.ENVIRONMENT}
-                        idealResolution={{width: 800, height: 600}}
-                        //   imageType = {IMAGE_TYPES.JPG}
-                        //   imageCompression = {0.97}
-                        isMaxResolution={true}
-                        //   isImageMirror = {false}
-                        //   isSilentMode = {true}
-                        //   isDisplayStartCameraError = {true}
-                        isFullscreen={false}
-                        //   sizeFactor = {1}
-                        onCameraStart={(stream) => {
-                            this.onCameraStart(stream);
-                        }}
-                        onCameraStop={() => {
-                            this.onCameraStop();
-                        }}
-                    />
-                )}
+                        <Camera
+                            onTakePhoto={(dataUri) => {
+                                this.onTakePhoto(dataUri);
+                            }}
+                            onCameraError={(error) => {
+                                this.onCameraError(error);
+                            }}
+                            // idealFacingMode={FACING_MODES.ENVIRONMENT}
+                            idealResolution={{width: 800, height: 600}}
+                            //   imageType = {IMAGE_TYPES.JPG}
+                            //   imageCompression = {0.97}
+                            isMaxResolution={true}
+                            //   isImageMirror = {false}
+                            //   isSilentMode = {true}
+                            //   isDisplayStartCameraError = {true}
+                            isFullscreen={false}
+                            //   sizeFactor = {1}
+                            onCameraStart={(stream) => {
+                                this.onCameraStart(stream);
+                            }}
+                            onCameraStop={() => {
+                                this.onCameraStop();
+                            }}
+                        />
+                    )}
             </div>
         );
     }
